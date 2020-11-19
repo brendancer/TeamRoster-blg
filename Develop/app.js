@@ -14,31 +14,34 @@ const { listenerCount } = require("process");
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
 
-//const sort = () =>
-inquirer
-  .prompt([
-    {
-      type: "input",
-      name: "myName",
-      message: "Welome to TeamRoster! Please enter your full name.",
-      default: "firstName lastName",
-    },
-    {
-      type: "input",
-      name: "email",
-      message: "Please enter your email address",
-      default: "email@address.com",
-    },
-    {
-      type: "list",
-      name: "role",
-      message: "Please choose your role the company:",
-      choices: ["Manager", "Engineer", "Intern"],
-    },
-  ])
-  .then((response) => {
-    console.log(response);
-  });
+const employee = () => {
+  inquirer
+    .prompt([
+      {
+        type: "input",
+        name: "myName",
+        message: "Welome to TeamRoster! Please enter your full name.",
+        default: "firstName lastName",
+      },
+      {
+        type: "input",
+        name: "email",
+        message: "Please enter your email address",
+        default: "email@address.com",
+      },
+      {
+        type: "list",
+        name: "role",
+        message: "Please choose your role the company:",
+        choices: ["Manager", "Engineer", "Intern"],
+      },
+    ])
+    .then((response) => {
+      console.log(response);
+    });
+};
+employee();
+// render();
 
 // After the user has input all employees desired, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will
