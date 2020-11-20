@@ -13,15 +13,47 @@ const { listenerCount } = require("process");
 
 const team = [];
 
+function sortRole() {
+  inquirer
+    .prompt([
+      {
+        type: "list",
+        name: "role",
+        message: "Welcome to TeamRoster! What is your role in the company?",
+        choices: ["Manager", "Engineer", "Intern"],
+      },
+    ])
+    .then(function (response) {
+      switch (response.role) {
+        case "Manager":
+          createManager();
+          break;
+        case "Engineer":
+          createEngineer();
+          break;
+        case "Intern":
+          createIntern();
+          break;
+        default:
+          console.log(`You must choose a role.`);
+      }
+    });
+}
+
 function createManager() {
   inquirer
     .prompt([
       {
         type: "input",
         name: "myName",
-        message:
-          "Hello Manager! Welome to TeamRoster! Please enter your full name.",
+        message: "Welome to TeamRoster! Please enter your full name.",
         default: "firstName lastName",
+      },
+      {
+        type: "input",
+        name: "id",
+        message: "Please enter your employer id no.",
+        default: "email@address.com",
       },
       {
         type: "input",
@@ -44,9 +76,92 @@ function createManager() {
         response.officeNumber
       );
       team.push(manager);
+      console.log(team);
     });
 }
-createManager();
+
+function createEngineer() {
+  inquirer
+    .prompt([
+      {
+        type: "input",
+        name: "myName",
+        message: "Welome to TeamRoster! Please enter your full name.",
+        default: "firstName lastName",
+      },
+      {
+        type: "input",
+        name: "id",
+        message: "Please enter your employer id no.",
+        default: "email@address.com",
+      },
+      {
+        type: "input",
+        name: "email",
+        message: "Please enter your email address",
+        default: "email@address.com",
+      },
+      {
+        type: "input",
+        name: "github",
+        message: "Please enter your gitHub profile link",
+        default: "https://github.com/username",
+      },
+    ])
+    .then((response) => {
+      const engineer = new Engineer(
+        response.myName,
+        response.id,
+        response.email,
+        response.github
+      );
+      team.push(Engineer);
+      console.log(team);
+    });
+}
+
+function createIntern() {
+  inquirer
+    .prompt([
+      {
+        type: "input",
+        name: "myName",
+        message: "Welome to TeamRoster! Please enter your full name.",
+        default: "firstName lastName",
+      },
+      {
+        type: "input",
+        name: "id",
+        message: "Please enter your employer id no.",
+        default: "employee number",
+      },
+      {
+        type: "input",
+        name: "email",
+        message: "Please enter your email address",
+        default: "email@address.com",
+      },
+      {
+        type: "input",
+        name: "school",
+        message: "What school are you attending?",
+        default: "school name",
+      },
+    ])
+    .then((response) => {
+      const intern = new Intern(
+        response.myname,
+        response.id,
+        response.email,
+        response.school
+      );
+      team.push(intern);
+      console.log(team);
+    });
+}
+
+sortRole();
+
 // render();
 
 // After the user has input all employees desired, call the `render` function (required
