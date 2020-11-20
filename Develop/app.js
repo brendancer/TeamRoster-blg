@@ -13,6 +13,9 @@ const { listenerCount } = require("process");
 const { createInflate } = require("zlib");
 const Employee = require("./lib/Employee");
 
+//creating a global employee variable
+var createdEmployee = null;
+
 //creating the team member array
 const teamMember = [];
 
@@ -149,9 +152,14 @@ function createEngineer() {
         response.email,
         response.github
       );
-      teamMember.push(engineer);
+      createdEmployee = engineer;
       console.log(teamMember);
-      anotherOne();
+      if (this.role === "manager") {
+        teamMember.push(intern);
+        anotherOne();
+      } else {
+        createEmployee();
+      }
     });
 }
 
@@ -191,10 +199,23 @@ function createIntern() {
         response.email,
         response.school
       );
-      teamMember.push(intern);
-      console.log(teamMember);
-      anotherOne();
+      createdEmployee = intern;
+      console.log(createdEmployee);
+      if (this.role === "manager") {
+        teamMember.push(intern);
+        anotherOne();
+      } else {
+        createEmployee();
+      }
     });
+}
+function createEmployee() {
+  fs.appendFileSync(
+    `./createdEmployees/employee.js`,
+    JSON.stringify(createdEmployee),
+    "utf8"
+  );
+  console.log("Thank you for entering your information. ");
 }
 
 // creates the team in dir_output
