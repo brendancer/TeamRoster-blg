@@ -45,7 +45,7 @@ function createManager() {
     .prompt([
       {
         type: "input",
-        name: "myName",
+        name: "name",
         message: "Welome to TeamRoster! Please enter your full name.",
         default: "firstName lastName",
       },
@@ -70,7 +70,7 @@ function createManager() {
     ])
     .then((response) => {
       const manager = new Manager(
-        response.myName,
+        response.name,
         response.id,
         response.email,
         response.officeNumber
@@ -85,7 +85,7 @@ function createEngineer() {
     .prompt([
       {
         type: "input",
-        name: "myName",
+        name: "name",
         message: "Welome to TeamRoster! Please enter your full name.",
         default: "firstName lastName",
       },
@@ -110,10 +110,10 @@ function createEngineer() {
     ])
     .then((response) => {
       const engineer = new Engineer(
-        response.myname,
+        response.name,
         response.id,
         response.email,
-        response.school
+        response.github
       );
       team.push(engineer);
       console.log(team);
@@ -125,7 +125,7 @@ function createIntern() {
     .prompt([
       {
         type: "input",
-        name: "myName",
+        name: "name",
         message: "Welome to TeamRoster! Please enter your full name.",
         default: "firstName lastName",
       },
@@ -150,7 +150,7 @@ function createIntern() {
     ])
     .then((response) => {
       const intern = new Intern(
-        response.myname,
+        response.name,
         response.id,
         response.email,
         response.school
