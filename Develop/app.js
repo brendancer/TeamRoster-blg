@@ -93,7 +93,7 @@ function createEngineer() {
         type: "input",
         name: "id",
         message: "Please enter your employer id no.",
-        default: "email@address.com",
+        default: "employee number",
       },
       {
         type: "input",
@@ -110,12 +110,12 @@ function createEngineer() {
     ])
     .then((response) => {
       const engineer = new Engineer(
-        response.myName,
+        response.myname,
         response.id,
         response.email,
-        response.github
+        response.school
       );
-      team.push(Engineer);
+      team.push(engineer);
       console.log(team);
     });
 }
