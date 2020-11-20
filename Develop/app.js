@@ -153,9 +153,9 @@ function createEngineer() {
         response.github
       );
       createdEmployee = engineer;
-      console.log(teamMember);
-      if (this.role === "manager") {
-        teamMember.push(intern);
+      console.log();
+      if ((response.role = "manager")) {
+        teamMember.push(createdEmployee);
         anotherOne();
       } else {
         createEmployee();
@@ -201,8 +201,8 @@ function createIntern() {
       );
       createdEmployee = intern;
       console.log(createdEmployee);
-      if (this.role === "manager") {
-        teamMember.push(intern);
+      if ((response.role = "manager")) {
+        teamMember.push(createdEmployee);
         anotherOne();
       } else {
         createEmployee();
@@ -215,7 +215,9 @@ function createEmployee() {
     JSON.stringify(createdEmployee),
     "utf8"
   );
-  console.log("Thank you for entering your information. ");
+  console.log(
+    "Thank you for entering your information. It has been added to the file."
+  );
 }
 
 // creates the team in dir_output
