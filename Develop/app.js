@@ -10,9 +10,13 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 const { listenerCount } = require("process");
+const { createInflate } = require("zlib");
+const Employee = require("./lib/Employee");
 
-const team = [];
+//creating the team member array
+const teamMember = [];
 
+//obtaining user's role
 function sortRole() {
   inquirer
     .prompt([
@@ -39,14 +43,16 @@ function sortRole() {
       }
     });
 }
+sortRole();
 
+//manager flow
 function createManager() {
   inquirer
     .prompt([
       {
         type: "input",
         name: "name",
-        message: "Welome to TeamRoster! Please enter your full name.",
+        message: "Please enter your full name.",
         default: "firstName lastName",
       },
       {
@@ -75,111 +81,147 @@ function createManager() {
         response.email,
         response.officeNumber
       );
-      team.push(manager);
-      console.log(team);
+      teamMember.push(manager);
+      console.log(teamMember);
+      anotherOne();
     });
 }
 
-function createEngineer() {
+//determining if new team members need to be added
+function anotherOne() {
   inquirer
     .prompt([
       {
-        type: "input",
-        name: "name",
-        message: "Welome to TeamRoster! Please enter your full name.",
-        default: "firstName lastName",
-      },
-      {
-        type: "input",
-        name: "id",
-        message: "Please enter your employer id no.",
-        default: "employee number",
-      },
-      {
-        type: "input",
-        name: "email",
-        message: "Please enter your email address",
-        default: "email@address.com",
-      },
-      {
-        type: "input",
-        name: "github",
-        message: "Please enter your gitHub profile link",
-        default: "https://github.com/username",
+        type: "list",
+        name: "chooseMember",
+        message: "which type of team memeber would you like to add?",
+        choices: ["Engineer", "Intern", "I'm finished adding team members"],
       },
     ])
-    .then((response) => {
-      const engineer = new Engineer(
-        response.name,
-        response.id,
-        response.email,
-        response.github
-      );
-      team.push(engineer);
-      console.log(team);
+    .then(function (response) {
+      switch (response.chooseMember) {
+        case "Engineer":
+          createEngineer();
+          break;
+        case "Intern":
+          createIntern();
+          break;
+        case "I'm finished adding team members":
+          createTeam();
+      }
     });
+
+  //adds an engineer
+  function createEngineer() {
+    inquirer
+      .prompt([
+        {
+          type: "input",
+          name: "name",
+          message: "Engineer's name.",
+          default: "firstName lastName",
+        },
+        {
+          type: "input",
+          name: "id",
+          message: "Engineer's employer id no.",
+          default: "employee number",
+        },
+        {
+          type: "input",
+          name: "email",
+          message: "Engineer's email address",
+          default: "email@address.com",
+        },
+        {
+          type: "input",
+          name: "github",
+          message: "Engineer's gitHub profile link",
+          default: "https://github.com/username",
+        },
+      ])
+      .then((response) => {
+        const engineer = new Engineer(
+          response.name,
+          response.id,
+          response.email,
+          response.github
+        );
+        teamMember.push(engineer);
+        console.log(teamMember);
+        anotherOne();
+      });
+  }
+
+  //adds an intern
+  function createIntern() {
+    inquirer
+      .prompt([
+        {
+          type: "input",
+          name: "name",
+          message: "Intern's name.",
+          default: "firstName lastName",
+        },
+        {
+          type: "input",
+          name: "id",
+          message: "Intern's employer id no.",
+          default: "employee number",
+        },
+        {
+          type: "input",
+          name: "email",
+          message: "Intern's email address",
+          default: "email@address.com",
+        },
+        {
+          type: "input",
+          name: "school",
+          message: "Intern's school?",
+          default: "school name",
+        },
+      ])
+      .then((response) => {
+        const intern = new Intern(
+          response.name,
+          response.id,
+          response.email,
+          response.school
+        );
+        teamMember.push(intern);
+        console.log(teamMember);
+        anotherOne();
+      });
+  }
+
+  render(teamMember);
+
+  function createTeam() {
+    if (!fs.existsSync(OUTPUT_DIR)) {
+      fs.mkdirSync(OUTPUT_DIR);
+    } else {
+      fs.writeFileSync(outputPath, render(teamMember), "utf8");
+    }
+  }
+
+  // After the user has input all employees desired, call the `render` function (required
+  // above) and pass in an array containing all employee objects; the `render` function will
+  // generate and return a block of HTML including templated divs for each employee!
+
+  // After you have your html, you're now ready to create an HTML file using the HTML
+  // returned from the `render` function. Now write it to a file named `team.html` in the
+  // `output` folder. You can use the variable `outputPath` above target this location.
+  // Hint: you may need to check if the `output` folder exists and create it if it
+  // does not.
+
+  // HINT: each employee type (manager, engineer, or intern) has slightly different
+  // information; write your code to ask different questions via inquirer depending on
+  // employee type.
+
+  // HINT: make sure to build out your classes first! Remember that your Manager, Engineer,
+  // and Intern classes should all extend from a class named Employee; see the directions
+  // for further information. Be sure to test out each class and verify it generates an
+  // object with the correct structure and methods. This structure will be crucial in order
+  // for the provided `render` function to work!
 }
-
-function createIntern() {
-  inquirer
-    .prompt([
-      {
-        type: "input",
-        name: "name",
-        message: "Welome to TeamRoster! Please enter your full name.",
-        default: "firstName lastName",
-      },
-      {
-        type: "input",
-        name: "id",
-        message: "Please enter your employer id no.",
-        default: "employee number",
-      },
-      {
-        type: "input",
-        name: "email",
-        message: "Please enter your email address",
-        default: "email@address.com",
-      },
-      {
-        type: "input",
-        name: "school",
-        message: "What school are you attending?",
-        default: "school name",
-      },
-    ])
-    .then((response) => {
-      const intern = new Intern(
-        response.name,
-        response.id,
-        response.email,
-        response.school
-      );
-      team.push(intern);
-      console.log(team);
-    });
-}
-
-sortRole();
-
-// render();
-
-// After the user has input all employees desired, call the `render` function (required
-// above) and pass in an array containing all employee objects; the `render` function will
-// generate and return a block of HTML including templated divs for each employee!
-
-// After you have your html, you're now ready to create an HTML file using the HTML
-// returned from the `render` function. Now write it to a file named `team.html` in the
-// `output` folder. You can use the variable `outputPath` above target this location.
-// Hint: you may need to check if the `output` folder exists and create it if it
-// does not.
-
-// HINT: each employee type (manager, engineer, or intern) has slightly different
-// information; write your code to ask different questions via inquirer depending on
-// employee type.
-
-// HINT: make sure to build out your classes first! Remember that your Manager, Engineer,
-// and Intern classes should all extend from a class named Employee; see the directions
-// for further information. Be sure to test out each class and verify it generates an
-// object with the correct structure and methods. This structure will be crucial in order
-// for the provided `render` function to work! ```
