@@ -154,7 +154,7 @@ function createEngineer() {
       );
       createdEmployee = engineer;
       console.log();
-      if ((response.role = "manager")) {
+      if (response.role === "manager") {
         teamMember.push(createdEmployee);
         anotherOne();
       } else {
@@ -201,7 +201,7 @@ function createIntern() {
       );
       createdEmployee = intern;
       console.log(createdEmployee);
-      if ((response.role = "manager")) {
+      if (response.role === "manager") {
         teamMember.push(createdEmployee);
         anotherOne();
       } else {
