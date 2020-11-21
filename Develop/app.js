@@ -85,8 +85,10 @@ function createManager() {
         response.email,
         response.officeNumber
       );
-      teamMember.push(manager);
-      console.log(teamMember);
+      createdEmployee = manager;
+      teamMember.push(createdEmployee);
+      console.log(createdEmployee);
+      createEmployee();
       anotherOne();
     });
 }
@@ -153,9 +155,9 @@ function createEngineer() {
         response.github
       );
       createdEmployee = engineer;
-      console.log();
-      if (response.role === "manager") {
+      if ((createdEmployee.role = "manager")) {
         teamMember.push(createdEmployee);
+        createEmployee();
         anotherOne();
       } else {
         createEmployee();
@@ -201,8 +203,10 @@ function createIntern() {
       );
       createdEmployee = intern;
       console.log(createdEmployee);
-      if (response.role === "manager") {
+      console.log(createdEmployee.role);
+      if ((createdEmployee.role = "manager")) {
         teamMember.push(createdEmployee);
+        createEmployee();
         anotherOne();
       } else {
         createEmployee();
