@@ -5,11 +5,16 @@
 
 h1 {
   color: green;
+  margin-bottom: 20px;
 }
 
 .employee-card {
-  width: 500px;
+  width: 18rem;
   display: block;
-  float: left;
-  
+}
+
+.card-header {
+  background-color: #a19dff;
+  color: white;
+  text-align: center;
 }
