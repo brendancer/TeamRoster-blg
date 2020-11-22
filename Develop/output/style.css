@@ -16,6 +16,10 @@
   display: block;
 }
 
+.card-body {
+  background-color: lightgray;
+}
+
 .card-header {
   background-color: #00a3d2;
   color: white;
