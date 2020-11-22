@@ -27,19 +27,19 @@ function createManager() {
         default: "firstName lastName",
       },
       {
-        type: "input",
+        type: "number",
         name: "id",
         message: "Please enter your employer id no.",
-        default: "email@address.com",
+        default: "employee no.",
       },
       {
-        type: "input",
+        type: "email",
         name: "email",
         message: "Please enter your email address",
         default: "email@address.com",
       },
       {
-        type: "input",
+        type: "tel",
         name: "officeNumber",
         message: "Please enter your office phone number",
         default: "format as you want it displayed",

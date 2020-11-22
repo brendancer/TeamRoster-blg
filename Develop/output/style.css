@@ -1,18 +1,18 @@
 .team-heading {
   background-image: url("images/team-pic.png");
   background-size: 40%;
-  top: 0;
+  min-height: 300px;
 }
 .team-area {
   flex-wrap: wrap;
 }
 
-h1 {
-  margin-bottom: 100px;
+.text-center {
+  background-color: white;
 }
 
 .employee-card {
-  width: 15rem;
+  width: 20rem;
   display: block;
 }
 
