@@ -1,20 +1,23 @@
 .team-heading {
   background-image: url("images/team-pic.png");
-  background-size: 25%;
+  background-size: 40%;
+  top: 0;
+}
+.team-area {
+  flex-wrap: wrap;
 }
 
 h1 {
-  color: green;
-  margin-bottom: 20px;
+  margin-bottom: 100px;
 }
 
 .employee-card {
-  width: 18rem;
+  width: 15rem;
   display: block;
 }
 
 .card-header {
-  background-color: #a19dff;
+  background-color: #00a3d2;
   color: white;
   text-align: center;
 }
